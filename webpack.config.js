@@ -8,7 +8,7 @@ module.exports={
         root: path.resolve('./'),
     },
     output:{
-        path:"./mySite/chat/static/js/",
+        path:"output/",
         filename:"bundle.js"
     },
     module:{
