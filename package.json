@@ -1,0 +1,35 @@
+{
+  "name": "todolist-react-backbone",
+  "version": "1.0.0",
+  "description": "hello todolist",
+  "main": "bundle.js",
+  "dependencies": {
+    "backbone": "^1.2.3",
+    "jsx-loader": "^0.13.2",
+    "jquery": "^2.2.1",
+    "less": "^2.6.0",
+    "react": "^0.14.7",
+    "react-dom": "^0.14.7",
+    "underscore": "^1.8.3",
+    "url-loader": "^0.5.7",
+    "webpack": "^1.12.14",
+    "file-loader": "^0.8.5",
+    "style-loader": "^0.13.0",
+    "less-loader": "^2.2.2",
+    "css-loader": "^0.23.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/letyougo/todolist-react-backbone.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/letyougo/todolist-react-backbone/issues"
+  },
+  "homepage": "https://github.com/letyougo/todolist-react-backbone#readme"
+}

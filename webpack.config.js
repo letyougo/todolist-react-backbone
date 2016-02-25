@@ -8,7 +8,7 @@ module.exports={
         root: path.resolve('./'),
     },
     output:{
-        path:"output/",
+        path:"./",
         filename:"bundle.js"
     },
     module:{
