@@ -54,12 +54,13 @@
 	    ReactDOM = __webpack_require__(161);
 
 	window.root={
-	    commentList : new Backbone.Collection()
+	    commentList : new Backbone.Collection(),
+	    id:0
 	}
 
 	root.commentList.reset([
-	    {name:"surui",age:"25",sex:"man",id:1},
-	    {name:"fengche",age:"25",sex:"man",id:2}
+	    {name:"surui",age:"25",sex:"man",id:root.id++},
+	    {name:"fengche",age:"25",sex:"man",id:root.id++}
 	])
 
 	var CommentItem = React.createClass({displayName: "CommentItem",
@@ -90,10 +91,16 @@
 	                    React.createElement("input", {style: {display:this.state.display}, value: this.state.sex, onChange: this.handleChange.bind(this,'sex')})
 	                ), 
 	                React.createElement("p", null, 
-	                    React.createElement("button", {onClick: this.handleClick}, this.state.text)
+	                    React.createElement("button", {onClick: this.handleClick}, this.state.text), 
+	                    React.createElement("button", {onClick: this.handleDelete}, "delete")
 	                )
 	            )
 	        )
+	    },
+
+	    handleDelete:function(){
+	        var id = this.props.id
+	        root.commentList.remove(id)
 	    },
 	    handleClick:function(){
 	        var state = this.state.display
@@ -177,7 +184,7 @@
 	        this.setState(s)
 	    },
 	    submit:function(){
-	        root.commentList.add(this.state)
+	        root.commentList.add(_.extend(this.state,{id:root.id++}))
 	    }
 	})
 

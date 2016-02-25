@@ -8,12 +8,13 @@ var _ = require("underscore"),
     ReactDOM = require("react-dom");
 
 window.root={
-    commentList : new Backbone.Collection()
+    commentList : new Backbone.Collection(),
+    id:0
 }
 
 root.commentList.reset([
-    {name:"surui",age:"25",sex:"man",id:1},
-    {name:"fengche",age:"25",sex:"man",id:2}
+    {name:"surui",age:"25",sex:"man",id:root.id++},
+    {name:"fengche",age:"25",sex:"man",id:root.id++}
 ])
 
 var CommentItem = React.createClass({
@@ -45,9 +46,15 @@ var CommentItem = React.createClass({
                 </p>
                 <p>
                     <button onClick={this.handleClick}>{this.state.text}</button>
+                    <button onClick={this.handleDelete}>delete</button>
                 </p>
             </li>
         )
+    },
+
+    handleDelete:function(){
+        var id = this.props.id
+        root.commentList.remove(id)
     },
     handleClick:function(){
         var state = this.state.display
@@ -131,7 +138,7 @@ var CommentForm = React.createClass({
         this.setState(s)
     },
     submit:function(){
-        root.commentList.add(this.state)
+        root.commentList.add(_.extend(this.state,{id:root.id++}))
     }
 })
 
