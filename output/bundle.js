@@ -58,26 +58,85 @@
 	}
 
 	root.commentList.reset([
-	    {name:"surui",age:"25",sex:"man"},
-	    {name:"fengche",age:"25",sex:"man"}
+	    {name:"surui",age:"25",sex:"man",id:1},
+	    {name:"fengche",age:"25",sex:"man",id:2}
 	])
 
 	var CommentItem = React.createClass({displayName: "CommentItem",
+	    getInitialState:function(){
+	        return {
+	            display:"none",
+	            text:"edit",
+	            name:this.props.name,
+	            age:this.props.age,
+	            sex:this.props.sex
+	        }
+	    },
+
 	    render:function(){
+
 	        return (
 	            React.createElement("li", null, 
-	                React.createElement("span", null, this.props.name), 
-	                React.createElement("span", null, this.props.age), 
-	                React.createElement("span", null, this.props.sex)
+	                React.createElement("p", {ref: "name"}, 
+	                    React.createElement("span", null, this.props.name), 
+	                    React.createElement("input", {style: {display:this.state.display}, value: this.state.name, onChange: this.handleChange.bind(this,'name')})
+	                ), 
+	                React.createElement("p", {ref: "age"}, 
+	                    React.createElement("span", null, this.props.age), 
+	                    React.createElement("input", {style: {display:this.state.display}, value: this.state.age, onChange: this.handleChange.bind(this,'age')})
+	                ), 
+	                React.createElement("p", {ref: "sex"}, 
+	                    React.createElement("span", null, this.props.sex), 
+	                    React.createElement("input", {style: {display:this.state.display}, value: this.state.sex, onChange: this.handleChange.bind(this,'sex')})
+	                ), 
+	                React.createElement("p", null, 
+	                    React.createElement("button", {onClick: this.handleClick}, this.state.text)
+	                )
 	            )
 	        )
+	    },
+	    handleClick:function(){
+	        var state = this.state.display
+	        if(state == 'none'){
+	            this.setState({
+	                display:"block",
+	                text:"save"
+	            })
+	        }else {
+	            var id = this.props.id
+	            var model = root.commentList.get(id)
+	            model.set(this.state)
+	            this.setState({
+	                display:"none",
+	                text:"edit"
+	            })
+	        }
+	    },
+	    handleChange:function(name,e){
+	        var obj = {}
+	        obj[name] = e.target.value
+	        this.setState(obj)
+	    },
+	    componentWillReceiveProps:function(nextProps){
+	        this.setState({
+	            name:nextProps.name,
+	            age:nextProps.age,
+	            sex:nextProps.sex
+	        })
 	    }
 	})
 
 	var CommentList= React.createClass({displayName: "CommentList",
 	    render:function(){
 	        var nodes = this.props.items.map(function(item,i){
-	            return React.createElement(CommentItem, {key: "item-"+i, name: item.name, age: item.age, sex: item.sex})
+	            return (
+	            React.createElement(CommentItem, {
+	                key: "item-"+i, 
+	                name: item.name, 
+	                age: item.age, 
+	                sex: item.sex, 
+	                id: item.id}
+	            ))
 	        })
 	        return (
 	            React.createElement("ul", null, 
